@@ -27,6 +27,7 @@ var the = {},
 		console.log('schema', schema);
 		return function(){
 			console.log('construct mix');
+			this.prototype = mix;
 			var content = this.content = {},
 				reset = function(ingredient){
 					if(typeof ingredient === 'undefined'){
@@ -61,9 +62,10 @@ var the = {},
 		};
 	},
 
-	schnapps = exports.schnapps = mix(water, alcohol);
+//	schnapps = exports.schnapps = mix(water, alcohol);
+	schnapps = exports.schnapps = mix();
 
-mix.prototype.volume = function(){
+mix.volume = function(){
 	var content = this.content,
 		total = 0;
 	for(var name in content){

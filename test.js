@@ -5,7 +5,7 @@ var model = require('./model'),
 	drink = new schnapps;
 	
 var log = function(){
-	console.log(schnapps.toString.call(drink));
+	console.log(schnapps.prototype.toString.call(drink));
 };
 
 log();
