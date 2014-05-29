@@ -4,14 +4,6 @@ var model = require('./model'),
 	schnapps = model.schnapps,
 	drink = new schnapps;
 	
-	//tank = model.tank;
-/*	
-var tank3 = new tank(3),
-	tank5 = new tank(5);
-
-tank3.pour(water);
-*/
-
 var log = function(){
 	console.log(schnapps.toString.call(drink));
 };
