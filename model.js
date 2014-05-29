@@ -45,7 +45,7 @@ var the = {},
 				}
 			}
 			var pick = this.ingredient = function(name){
-				return (typeof content[key] !== 'undefined') && content[key];
+				return (typeof content[name] !== 'undefined') && content[name];
 			};
 			this.add = function(it, volume){
 				if(volume < 0){
