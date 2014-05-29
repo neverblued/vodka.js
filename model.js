@@ -18,7 +18,8 @@ var the = {},
 
 	mix = exports.mix = function(){
 		var schema = [];
-		for(var index in arguments){
+		console.log('arguments', arguments);
+		for(var index = 0, limit = arguments.length; index < limit; index++){
 			var name = arguments[index];
 			schema[index] = the[name];
 			console.log(name, the[name]);
