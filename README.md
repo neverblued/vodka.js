@@ -3,7 +3,7 @@ vodka.js
 
 Status
 ------
-Modelling...
+Modeling...
 
 Test
 ----
