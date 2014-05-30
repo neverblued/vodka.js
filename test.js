@@ -1,15 +1,13 @@
-var model = require('./model'),
-	water = model.water,
-	alcohol = model.alcohol,
-	schnapps = model.schnapps,
-	drink = new schnapps;
-	
-var log = function(){
-	console.log(schnapps.prototype.toString.call(drink));
-};
+var model = require('./model');
+console.log('start!');
 
-log();
-water.pour(drink, 30);
-log();
-alcohol.pour(drink, 20);
-log();
+var drink = new model.schnapps;
+console.log('now ' + drink);
+
+model.water.pour(drink, 30);
+console.log('now ' + drink);
+
+model.alcohol.pour(drink, 20);
+console.log('now ' + drink);
+
+console.log('end.');
