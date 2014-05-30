@@ -1,4 +1,13 @@
 vodka.js
 ========
 
-Current status: model v.alpha
+Status
+------
+Modelling...
+
+Test
+----
+
+```
+user@host:/project/folder$ ./run
+```
