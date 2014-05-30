@@ -50,6 +50,9 @@ schnapps.prototype.strength = function(){
 	if(!this.content.water){
 		return this.content.alcohol ? 1 : 0;
 	}
+	if(!this.content.alcohol){
+		return 0;
+	}
 	return this.content.alcohol / this.content.water;
 };
 
