@@ -3,8 +3,12 @@ var substance = exports.substance = function(name){
 	exports[name] = this;
 };
 	
-substance.prototype.pour = function(mix, volume){
-	return mix.add(this, volume);
+substance.prototype.pour = function(volume, mix){
+	if(volume < 0){
+		throw 'negative volume ' + volume + ' of ' + this + ' is not valid';
+	}
+	console.log('pour V:' + volume + ' of ' + this + ' into ' + mix);
+	return mix.add(volume, this);
 };
 
 substance.prototype.toString = function(){
@@ -16,19 +20,15 @@ var mix = exports.mix = function(){};
 mix.prototype.content = {};
 
 mix.prototype.find = function(name){
-	var content = this.content;
-	return (typeof content[name] !== 'undefined') && content[name];
+	return (typeof this.content[name] !== 'undefined') && this.content[name];
 };
 
-mix.prototype.add = function(substance, volume){
-	if(volume < 0){
-		throw 'can not add negative volume of ' + substance;
+mix.prototype.add = function(volume, ingredient){
+	console.log('add V:' + volume + ' of ' + ingredient + ' to ' + this);
+	if(!this.find(ingredient)){
+		this.content[ingredient.name] = 0;
 	}
-	console.log('add ' + volume + ' of ' + substance + ' to ' + this);
-	if(!this.find(substance)){
-		this.content[substance.name] = 0;
-	}
-	return this.content[substance.name] += volume;
+	return this.content[ingredient.name] += volume;
 };
 
 mix.prototype.volume = function(){
@@ -38,6 +38,41 @@ mix.prototype.volume = function(){
 		total += volume;
 	}
 	return total;
+};
+
+var tank = exports.tank = function(limit, content){
+	this.limit = limit;
+	this.mix = content || new mix;
+};
+
+tank.prototype.add = function(volume, ingredient){
+	return this.mix.add(volume, ingredient);
+};
+
+tank.prototype.check = function(){
+	var volume = this.mix.volume();
+	if(volume < 0){
+		throw this + ' volume is negative';
+	}
+	if(volume > this.limit){
+		throw this + ' volume limit excess';
+	}
+	if(volume === 0){
+		console.log(this + ' is empty');
+	}
+};
+
+tank.prototype.fill = function(source){
+	var lack = this.limit - this.mix.volume();
+	source.pour(this.mix, lack);
+	if(this.mix.volume() !== this.limit){
+		throw this + ' limit not reached with ' + lack;
+	}
+	this.check();
+};
+
+tank.prototype.toString = function(){
+	return '#(limit=V:' + this.limit + ' ' + this.mix + ')';
 };
 
 var water = new substance('water');
@@ -57,9 +92,7 @@ schnapps.prototype.strength = function(){
 };
 
 schnapps.prototype.toString = function(){
-	return ':: '
-		+ water + ' = ' + this.content.water + ', '
-		+ alcohol + ' = ' + this.content.alcohol + ', '
-		+ 'Volume = ' + this.volume() + ', '
-		+ 'Strength = ' + this.strength() + '.';
+	var volume = this.volume(),
+		strength = Math.round(100 * this.strength()) + '%';
+	return '#(' + strength + ' V:' + volume + ')';
 };
