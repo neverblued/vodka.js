@@ -2,9 +2,18 @@ var format = require('./format');
 
 var substance = exports.substance = function(name){
 	this.name = name;
-	exports[name] = this;
+	substance.element[name] = exports[name] = this;
 };
-	
+
+substance.element = {};
+
+substance.id = function(name){
+	if(!substance.element[name]){
+		throw 'undefined substance ' + name;
+	}
+	return substance.element[name];
+};
+
 substance.prototype.pour = function(volume, mix){
 	if(volume < 0){
 		throw 'negative volume ' + volume + ' of ' + this + ' is not valid';
@@ -23,10 +32,11 @@ mix.prototype.find = function(name){
 
 mix.prototype.add = function(volume, ingredient){
 	console.log(format.action('add ' + format.measure(volume, ingredient) + ' to ' + this));
-	if(!this.find(ingredient)){
-		this.content[ingredient.name] = 0;
+	var name = ingredient.name;
+	if(!this.find(name)){
+		this.content[name] = 0;
 	}
-	return this.content[ingredient.name] += volume;
+	return this.content[name] += volume;
 };
 
 mix.prototype.volume = function(){
@@ -70,7 +80,7 @@ tank.prototype.space = function(){
 };
 
 tank.prototype.fill = function(source){
-	console.log(format.action('fill ' + this));
+	console.log(format.action(source + ' fill ' + this));
 	source.pour(this.space(), this);
 	if(this.check() !== this.limit){
 		throw 'not full ' + this;
@@ -90,7 +100,7 @@ schnapps.prototype.strength = function(){
 	if(!this.content.alcohol){
 		return 0;
 	}
-	return this.content.alcohol / this.content.water;
+	return this.content.alcohol / this.volume();
 };
 
 require('./pretty');

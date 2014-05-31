@@ -17,7 +17,6 @@ try{
 	taste(drink);
 	
 	drink.fill(model.water);
-	//model.water.pour(10, drink);
 	taste(drink);
 
 }catch(condition){
