@@ -7,7 +7,7 @@ var model = require('./model'),
 console.log('start...');
 try{
 	
-	var drink = new model.tank(40, new model.schnapps);
+	var drink = new model.tank(55, new model.schnapps);
 	taste(drink);
 
 	model.water.pour(30, drink);
@@ -16,6 +16,9 @@ try{
 	model.alcohol.pour(20, drink);
 	taste(drink);
 	
+	model.water.pour(10, drink);
+	taste(drink);
+
 }catch(condition){
 	console.log('! ' + (condition.message || condition));
 }
