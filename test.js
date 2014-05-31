@@ -17,7 +17,7 @@ try{
 	taste(drink);
 	
 	drink.fill(model.water);
-	taste(drink);
+//	taste(drink);
 
 }catch(condition){
 	console.log('! ' + (condition.message || condition));

@@ -32,11 +32,14 @@ mix.prototype.find = function(name){
 
 mix.prototype.add = function(volume, ingredient){
 	console.log(format.action('add ' + format.measure(volume, ingredient) + ' to ' + this));
-	var name = ingredient.name;
+	var name = ingredient.name,
+		content = this.content;
 	if(!this.find(name)){
-		this.content[name] = 0;
+		content[name] = 0;
 	}
-	return this.content[name] += volume;
+	content[name] += volume;
+	this.container && this.container.check();
+	return content[name];
 };
 
 mix.prototype.volume = function(){
@@ -51,6 +54,7 @@ mix.prototype.volume = function(){
 var tank = exports.tank = function(limit, content){
 	this.limit = limit;
 	this.mix = content || new mix;
+	this.mix.container = this;
 };
 
 tank.prototype.add = function(volume, ingredient){
@@ -82,7 +86,7 @@ tank.prototype.space = function(){
 tank.prototype.fill = function(source){
 	console.log(format.action(source + ' fill ' + this));
 	source.pour(this.space(), this);
-	if(this.check() !== this.limit){
+	if(this.mix.volume() !== this.limit){
 		throw 'not full ' + this;
 	}
 };
