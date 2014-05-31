@@ -1,13 +1,22 @@
-var model = require('./model');
-console.log('start!');
+var model = require('./model'),
+	format = require('./format'),
+	taste = function(object){
+		console.log(format.status(object));
+	};
 
-var drink = new model.tank(40, new model.schnapps);
-console.log('drink is ' + drink);
+console.log('start...');
+try{
+	
+	var drink = new model.tank(40, new model.schnapps);
+	taste(drink);
 
-model.water.pour(30, drink);
-console.log('drink is ' + drink);
+	model.water.pour(30, drink);
+	taste(drink);
 
-model.alcohol.pour(20, drink);
-console.log('drink is ' + drink);
-
-console.log('end.');
+	model.alcohol.pour(20, drink);
+	taste(drink);
+	
+}catch(condition){
+	console.log('! ' + (condition.message || condition));
+}
+console.log('. end');
