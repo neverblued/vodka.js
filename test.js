@@ -16,7 +16,8 @@ try{
 	model.alcohol.pour(20, drink);
 	taste(drink);
 	
-	model.water.pour(10, drink);
+	drink.fill(model.water);
+	//model.water.pour(10, drink);
 	taste(drink);
 
 }catch(condition){

@@ -9,7 +9,7 @@ substance.prototype.pour = function(volume, mix){
 	if(volume < 0){
 		throw 'negative volume ' + volume + ' of ' + this + ' is not valid';
 	}
-	console.log('pour ' + format.measure(volume, this) + ' into ' + mix);
+	console.log(format.action('pour ' + format.measure(volume, this) + ' into ' + mix));
 	return mix.add(volume, this);
 };
 
@@ -22,7 +22,7 @@ mix.prototype.find = function(name){
 };
 
 mix.prototype.add = function(volume, ingredient){
-	console.log('add ' + format.measure(volume, ingredient) + ' to ' + this);
+	console.log(format.action('add ' + format.measure(volume, ingredient) + ' to ' + this));
 	if(!this.find(ingredient)){
 		this.content[ingredient.name] = 0;
 	}
@@ -58,9 +58,9 @@ tank.prototype.check = function(){
 		throw 'volume limit excess' + this;
 	}
 	if(volume === 0){
-		console.log(this + ' is empty');
+		console.log(format.status('empty ' + this));
 	}else if(volume === this.limit){
-		console.log(this + ' is full');
+		console.log(format.status('full ' + this));
 	}
 	return volume;
 };
@@ -70,9 +70,10 @@ tank.prototype.space = function(){
 };
 
 tank.prototype.fill = function(source){
+	console.log(format.action('fill ' + this));
 	source.pour(this.space(), this);
 	if(this.check() !== this.limit){
-		throw this + ' is not full';
+		throw 'not full ' + this;
 	}
 };
 
