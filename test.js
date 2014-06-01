@@ -1,25 +1,38 @@
 var model = require('./model'),
 	format = require('./format'),
-	taste = function(object){
+	check = function(object){
 		console.log(format.status(object));
 	};
 
 console.log('start...');
 try{
 	
-	var drink = new model.tank(55, new model.schnapps);
-	taste(drink);
+	var water = model.water,
+		alcohol = model.alcohol,
+		schnapps = model.schnapps,
+		tank = model.tank,
+		
+		tank3 = new tank(3, new schnapps),
+		tank5 = new tank(5, new schnapps);
 
-	model.water.pour(30, drink);
-	taste(drink);
+	check(tank3);
+	check(tank5);
 
-	model.alcohol.pour(20, drink);
-	taste(drink);
+	water.pour(2, tank5);
+	check(tank5);
+
+	alcohol.pour(2, tank5);
+	check(tank5);
 	
-	drink.fill(model.water);
-//	taste(drink);
+	tank5.fill(water);
+//	check(tank5);
+	
+	tank5.pour(tank3);
+	check(tank3);
+	check(tank5);
 
 }catch(condition){
 	console.log('! ' + (condition.message || condition));
+	throw condition;
 }
 console.log('. end');

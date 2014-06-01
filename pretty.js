@@ -20,9 +20,9 @@ model.mix.prototype.toString = function(){
 };
 
 model.schnapps.prototype.toString = function(){
-	return format.measure(this.volume(), format.symbol('schnapps'))
-		+ '(' + format.strength(this.strength()) + ')'
-		+ model.mix.prototype.toString.call(this);
+	var mix = format.measure(this.volume(), model.mix.prototype.toString.call(this)),
+		title = '(' + format.strength(this.strength()) + ')' + 'schnapps';
+	return format.symbol(title) + '~' + mix;
 };
 
 model.tank.prototype.toString = function(){
