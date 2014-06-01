@@ -84,7 +84,7 @@ tank.prototype.space = function(){
 };
 
 tank.prototype.fill = function(source){
-	console.log(format.action(source + ' fill ' + this));
+	console.log(format.action('fill ' + this + ' with ' + source));
 	source.pour(this.space(), this);
 	if(this.mix.volume() !== this.limit){
 		throw 'not full ' + this;
