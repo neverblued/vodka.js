@@ -9,7 +9,7 @@ model.mix.prototype.toString = function(){
 	var list = [];
 	for(var name in this.content){
 		var volume = this.content[name];
-		list.push(model.substance.id(name) + ':' + volume);
+		list.push(format.measure(volume, model.substance.id(name)));
 	}
 	if(list.length){
 		list.reverse();
@@ -20,14 +20,11 @@ model.mix.prototype.toString = function(){
 };
 
 model.schnapps.prototype.toString = function(){
-	return format.symbol('schnapps')
+	return format.measure(this.volume(), format.symbol('schnapps'))
 		+ '(' + format.strength(this.strength()) + ')'
-		+ model.mix.prototype.toString.call(this)
-		+ '=' + format.volume(this.volume());
+		+ model.mix.prototype.toString.call(this);
 };
 
 model.tank.prototype.toString = function(){
-	return format.symbol('tank')
-		+ '=' + format.volume(this.limit)
-		+ this.mix;
+	return format.measure(this.limit, format.symbol('tank')) + '^' + this.mix;
 };

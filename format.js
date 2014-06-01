@@ -13,10 +13,7 @@ var format = module.exports = {
 		return '#' + it.toUpperCase();
 	},
 	measure: function(quantity, entity){
-		return entity + '=' + format.volume(quantity);
-	},
-	volume: function(quantity){
-		return 'V:' + quantity;
+		return (entity || 'V') + ':' + quantity;
 	},
 	strength: function(percent){
 		return Math.round(100 * percent) + '%';
