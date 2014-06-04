@@ -51,7 +51,7 @@ try{
 	barmen.run();
 
 }catch(condition){
-	console.log('! ' + (condition.message || condition));
+	console.log(format.event(condition));
 	throw condition;
 }
 console.log(format.header('. end'));

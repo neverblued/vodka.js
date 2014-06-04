@@ -4,6 +4,9 @@ var format = module.exports = {
 	header: function(title){
 		return '\n' + title + '...';
 	},
+	event: function(condition){
+		return '! ' + (condition.message || condition);
+	},
 	status: function(object){
 		return '? ' + object;
 	},
@@ -13,7 +16,7 @@ var format = module.exports = {
 	method: function(message){
 		return '✓ ' + message;
 	},
-	success: function(){
+	success: function(){ // @TODO (goal) ?
 		return '-=-=- !!!!! =-= :) =-= ПОБЕДА =-= :) =-= !!!!! -=-=- ';
 	},
 	
