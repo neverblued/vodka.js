@@ -1,13 +1,16 @@
 var format = require('./format');
+var automat = require('./automat');
 
 var substance = exports.substance = function(name){
 	this.name = name;
 	substance.element[name] = exports[name] = this;
 };
 
+automat.interface.conform(substance);
+
 substance.element = {};
 
-substance.id = function(name){
+substance.get = function(name){
 	if(!substance.element[name]){
 		throw 'undefined substance ' + name;
 	}
@@ -22,9 +25,14 @@ substance.prototype.pour = function(volume, mix){
 	return mix.add(volume, this);
 };
 
+new substance('water');
+new substance('alcohol');
+
 var mix = exports.mix = function(){
 	this.empty();
 };
+
+automat.interface.conform(mix);
 
 mix.prototype.empty = function(){
 	this.content = {};
@@ -46,19 +54,19 @@ mix.prototype.add = function(volume, ingredient){
 	return this;
 };
 
-mix.prototype.merge = function(destination){
-	console.log(format.action('merge ' + this + ' with ' + destination));
-	if(typeof destination.add !== 'function'){
-		throw destination + ' has no add method';
+mix.prototype.merge = function(target){
+	console.log(format.action('merge ' + this + ' with ' + target));
+	if(typeof target.add !== 'function'){
+		throw target + ' has no method add';
 	}
 	for(var name in this.content){
-		var ingredient = substance.id(name),
-			volume = this.content[name];
-		destination.add(volume, ingredient);
+		var ingredient = substance.get(name);
+		var volume = this.content[name];
+		target.add(volume, ingredient);
 	}
 	this.empty();
-	destination.check && destination.check();
-	return destination;
+	target.check && target.check();
+	return target;
 };
 
 mix.prototype.pour = function(volume){
@@ -69,10 +77,10 @@ mix.prototype.pour = function(volume){
 	}
 	var difference = new mix;
 	for(var name in this.content){
-		var part = this.content[name],
-			delta = volume * (part / total);
+		var part = this.content[name];
+		var delta = volume * (part / total);
 		this.content[name] -= delta;
-		difference.add(delta, substance.id(name));
+		difference.add(delta, substance.get(name));
 	}
 	return difference;
 };
@@ -91,6 +99,8 @@ var tank = exports.tank = function(limit, content){
 	this.mix = content || new mix;
 	this.mix.container = this;
 };
+
+automat.interface.conform(tank);
 
 tank.prototype.volume = function(){
 	return this.mix.volume();
@@ -118,8 +128,10 @@ tank.prototype.check = function(){
 		console.log(format.status('empty ' + this));
 	}else if(volume === this.limit){
 		console.log(format.status('full ' + this));
+	}else{
+		console.log(format.status(this));
 	}
-	return volume;
+	return this;
 };
 
 tank.prototype.space = function(){
@@ -135,18 +147,15 @@ tank.prototype.fill = function(source){
 	return this;
 };
 
-tank.prototype.pour = function(destination){
-	console.log(format.action('pour from ' + this + ' to ' + destination));
-	if(destination){
-		this.mix.pour(Math.min(this.volume(), destination.space())).merge(destination);
+tank.prototype.pour = function(target){
+	console.log(format.action('pour from ' + this + ' to ' + target));
+	if(target){
+		this.mix.pour(Math.min(this.volume(), target.space())).merge(target);
 	}else{
 		this.empty();
 	}
 	return this;
 };
-
-var water = new substance('water');
-var alcohol = new substance('alcohol');
 
 var schnapps = exports.schnapps = function(){
 	mix.prototype.constructor.call(this);

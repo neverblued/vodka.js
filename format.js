@@ -1,11 +1,17 @@
 var format = module.exports = {
 	
 		// line
+	header: function(title){
+		return '\n' + title + '...';
+	},
 	status: function(object){
 		return '? ' + object;
 	},
 	action: function(message){
-		return '- ' + message;
+		return '• ' + message;
+	},
+	method: function(message){
+		return '✓ ' + message;
 	},
 	
 		// value

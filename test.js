@@ -1,38 +1,36 @@
-var model = require('./model'),
-	format = require('./format'),
-	check = function(object){
-		console.log(format.status(object));
-	};
+var model = require('./model');
+var format = require('./format');
+var automat = require('./automat');
 
-console.log('start...');
+console.log(format.header('start'));
 try{
 	
-	var water = model.water,
-		alcohol = model.alcohol,
-		schnapps = model.schnapps,
-		tank = model.tank,
-		
-		tank3 = new tank(3, new schnapps),
-		tank5 = new tank(5, new schnapps);
-
-	check(tank3);
-	check(tank5);
-
-	water.pour(2, tank5);
-	check(tank5);
-
-	alcohol.pour(2, tank5);
-	check(tank5);
+	var barmen = new automat(function(){this
+		.take('water', model.water)
+		.take('alcohol', model.alcohol)
+		.take('tank-3', new model.tank(3, new model.schnapps))
+		.take('tank-5', new model.tank(5, new model.schnapps));
+	});
 	
-	tank5.fill(water);
-//	check(tank5);
+	barmen.plan(new automat.method('check', 'tank-3'));
+	barmen.plan(new automat.method('check', 'tank-5'));
 	
-	tank5.pour(tank3);
-	check(tank3);
-	check(tank5);
+	barmen.plan(new automat.method('pour', 'water', 2, 'tank-5'));
+	barmen.plan(new automat.method('check', 'tank-5'));
+
+	barmen.plan(new automat.method('pour', 'alcohol', 2, 'tank-5'));
+	barmen.plan(new automat.method('check', 'tank-5'));
+
+	barmen.plan(new automat.method('fill', 'tank-5', 'water'));
+	
+	barmen.plan(new automat.method('pour', 'tank-5', 'tank-3'));
+	barmen.plan(new automat.method('check', 'tank-3'));
+	barmen.plan(new automat.method('check', 'tank-5'));
+	
+	barmen.run();
 
 }catch(condition){
 	console.log('! ' + (condition.message || condition));
 	throw condition;
 }
-console.log('. end');
+console.log(format.header('. end'));
