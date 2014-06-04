@@ -1,23 +1,25 @@
 var format = require('./format');
 var automat = require('./automat');
 
-var substance = exports.substance = function(name){
+// fluid
+
+var fluid = exports.fluid = function(name){
 	this.name = name;
-	substance.element[name] = exports[name] = this;
+	fluid.element[name] = exports[name] = this;
 };
 
-automat.interface.conform(substance);
+automat.interface.conform(fluid);
 
-substance.element = {};
+fluid.element = {};
 
-substance.get = function(name){
-	if(!substance.element[name]){
-		throw 'undefined substance ' + name;
+fluid.get = function(name){
+	if(!fluid.element[name]){
+		throw 'undefined fluid ' + name;
 	}
-	return substance.element[name];
+	return fluid.element[name];
 };
 
-substance.prototype.pour = function(volume, mix){
+fluid.prototype.pour = function(volume, mix){
 	if(volume < 0){
 		throw 'negative volume ' + volume + ' of ' + this + ' is not valid';
 	}
@@ -25,8 +27,10 @@ substance.prototype.pour = function(volume, mix){
 	return mix.add(volume, this);
 };
 
-new substance('water');
-new substance('alcohol');
+new fluid('water');
+new fluid('alcohol');
+
+// mix
 
 var mix = exports.mix = function(){
 	this.empty();
@@ -60,7 +64,7 @@ mix.prototype.merge = function(target){
 		throw target + ' has no method add';
 	}
 	for(var name in this.content){
-		var ingredient = substance.get(name);
+		var ingredient = fluid.get(name);
 		var volume = this.content[name];
 		target.add(volume, ingredient);
 	}
@@ -80,7 +84,7 @@ mix.prototype.pour = function(volume){
 		var part = this.content[name];
 		var delta = volume * (part / total);
 		this.content[name] -= delta;
-		difference.add(delta, substance.get(name));
+		difference.add(delta, fluid.get(name));
 	}
 	return difference;
 };
@@ -93,6 +97,8 @@ mix.prototype.volume = function(){
 	}
 	return total;
 };
+
+// tank
 
 var tank = exports.tank = function(limit, content){
 	this.limit = limit;
@@ -157,6 +163,8 @@ tank.prototype.pour = function(target){
 	return this;
 };
 
+// schnapps
+
 var schnapps = exports.schnapps = function(){
 	mix.prototype.constructor.call(this);
 };
@@ -172,4 +180,6 @@ schnapps.prototype.strength = function(){
 	return this.content.alcohol / this.volume();
 };
 
-require('./pretty');
+// view
+
+require('./view');

@@ -1,7 +1,8 @@
 var format = require('./format');
 var model = require('./model');
+var automat = require('./automat');
 
-model.substance.prototype.toString = function(){
+model.fluid.prototype.toString = function(){
 	return format.symbol(this.name);
 };
 
@@ -9,7 +10,7 @@ model.mix.prototype.toString = function(){
 	var list = [];
 	for(var name in this.content){
 		var volume = this.content[name];
-		list.push(format.measure(volume, model.substance.get(name)));
+		list.push(format.measure(volume, model.fluid.get(name)));
 	}
 	if(list.length){
 		list.reverse();
@@ -28,8 +29,6 @@ model.schnapps.prototype.toString = function(){
 model.tank.prototype.toString = function(){
 	return format.measure(this.limit, format.symbol('tank')) + '^' + this.mix;
 };
-
-var automat = require('./automat');
 
 automat.method.prototype.toString = function(){
 	return format.method(
