@@ -13,6 +13,9 @@ var format = module.exports = {
 	method: function(message){
 		return '✓ ' + message;
 	},
+	success: function(){
+		return '-=-=- !!!!! =-= :) =-= ПОБЕДА =-= :) =-= !!!!! -=-=- ';
+	},
 	
 		// value
 	symbol: function(it){

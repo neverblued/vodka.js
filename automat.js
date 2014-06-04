@@ -46,8 +46,11 @@ automat.prototype.get = function(it){
 	}
 };
 
-automat.prototype.check = function(object, standard){
-	console.log(format.status(object + (standard ? (' check via ' + standard) : '')));
+automat.prototype.validator = undefined;
+
+automat.prototype.check = function(predicate){
+	this.validator = predicate;
+	return this;
 };
 
 // method
@@ -94,7 +97,7 @@ method.prototype.run = function(){
 
 // action
 
-automat.prototype.plan = function(method){
+automat.prototype.step = function(method){
 	return this.sequence[this.sequence.length] = method.host(this);
 };
 
@@ -126,11 +129,21 @@ automat.prototype.each = function(lambda){
 	return this;
 };
 
+automat.prototype.test = function(){
+	var result = this.validator.call(this);
+	console.log(format.status(result));
+	return result;
+};
+
 automat.prototype.run = function(){
 	console.log(format.header('run'));
 	this.reset();
 	this.each(function(step){
 		this.perform(step);
+		if(this.test()){
+			console.log(format.success());
+			throw this.data;
+		}
 	});
 	return this.data;
 };

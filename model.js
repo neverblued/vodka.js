@@ -98,6 +98,23 @@ mix.prototype.volume = function(){
 	return total;
 };
 
+mix.prototype.compare = function(another){
+	var difference = Object.clone(this.content), name, volume;
+	for(name in another){
+		volume = another[name];
+		if(typeof difference[name] === 'undefined'){
+			difference[name] = 0;
+		}
+		difference[name] = -volume;
+	}
+	var result = new mix;
+	for(name in difference){
+		volume = difference[name];
+		result.add(volume, liquid.get(name));
+	}
+	return result;
+};
+
 // tank
 
 var tank = exports.tank = function(limit, content){
