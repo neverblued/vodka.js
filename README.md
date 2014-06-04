@@ -3,7 +3,9 @@ vodka.js
 
 Status
 ------
-Modeling...
+Model v.beta
+Automat v.alpha
+Technology ...
 
 Test
 ----
