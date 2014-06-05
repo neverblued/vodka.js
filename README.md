@@ -29,7 +29,8 @@ performing serial execution of methods and checking progress;
 and conforms to _Automat_ interface;
 * __View__ adds some sugar to console output via _toString_ overriding;
 * _Standard_ should separately describe approximation;
-* _Technology_ should implement experimental sequence generation and feedback processing.
+* _Technology_ should implement experimental sequence generation and feedback processing;
+* __Test__ is executed by _run_ script and glues modules together.
 
 Coding
 ------
