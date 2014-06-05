@@ -29,9 +29,10 @@ try{
 		var exhibit = ['tank-3', 'tank-5'];
 		console.log(format.action('check exhibit: ' + exhibit.join(', ')));
 		for(var index in exhibit){
-			if(approximation(this.get(exhibit[index])) > 0){
+			var it = this.get(exhibit[index]);
+			if(approximation(it) === 0){
 				var number = 1 * index + 1;
-				console.log(format.event('goal achieved via exhibit ' + number));
+				console.log(format.event('goal achieved via exhibit ' + number + ': ' + it));
 				return true;
 			}
 		}
