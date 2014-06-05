@@ -5,19 +5,18 @@ var automat = require('./automat');
 console.log(format.header('start'));
 try{
 	
-	var satisfy = (function(){
+	var approximation = (function(){
 		var precision = Math.pow(10, -6);
-		var validate = function(example, standard){
-			return Math.abs(example - standard) < precision;
-		};
-		var litre = function(drink){
-			return validate(drink.volume(), 5); // @FIXME should be 1
-		};
-		var vodka = function(drink){
-			return validate(drink.mix.strength(), 40/100);
+		var vodka = (new model.schnapps).add(6/10, model.water).add(4/10, model.alcohol);
+		console.log(format.status(format.symbol('litre-of-vodka') + ' = ' + vodka));
+		var difference = function(example, standard){
+			var volume = example.volume() - standard.volume();
+			var strength = example.strength() - standard.strength();
+			return Math.sqrt(Math.pow(volume, 2) + Math.pow(strength, 2));
 		};
 		return function(drink){
-			return litre(drink) && vodka(drink);
+			var mean = difference(drink.mix, vodka);
+			return (mean < precision) ? 0 : mean;
 		};
 	})();
 	
@@ -27,10 +26,16 @@ try{
 		.take('tank-3', new model.tank(3, new model.schnapps))
 		.take('tank-5', new model.tank(5, new model.schnapps));
 	}).check(function(){
-		var clause1 = satisfy(this.get('tank-3'));
-		var clause2 = satisfy(this.get('tank-5'));
-		console.log(format.action('check: clause1 = ' + clause1 + ', clause2 = ' + clause2));
-		return clause1 || clause2;
+		var exhibit = ['tank-3', 'tank-5'];
+		console.log(format.action('check exhibit: ' + exhibit.join(', ')));
+		for(var index in exhibit){
+			if(approximation(this.get(exhibit[index])) > 0){
+				var number = 1 * index + 1;
+				console.log(format.event('goal achieved via exhibit ' + number));
+				return true;
+			}
+		}
+		return false;
 	});
 	
 	barmen.step(new automat.method('check', 'tank-3'));
@@ -47,11 +52,13 @@ try{
 	barmen.step(new automat.method('pour', 'tank-5', 'tank-3'));
 	barmen.step(new automat.method('check', 'tank-3'));
 	barmen.step(new automat.method('check', 'tank-5'));
-	
+
+	barmen.step(new automat.method('pour', 'tank-3', 2));
+
 	barmen.run();
 
 }catch(condition){
 	console.log(format.event(condition));
 	throw condition;
 }
-console.log(format.header('. end'));
+console.log(format.header('end'));

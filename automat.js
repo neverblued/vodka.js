@@ -130,9 +130,7 @@ automat.prototype.each = function(lambda){
 };
 
 automat.prototype.test = function(){
-	var result = this.validator.call(this);
-	console.log(format.status(result));
-	return result;
+	return this.validator.call(this);
 };
 
 automat.prototype.run = function(){

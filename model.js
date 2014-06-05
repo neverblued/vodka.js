@@ -171,10 +171,14 @@ tank.prototype.fill = function(source){
 };
 
 tank.prototype.pour = function(target){
-	console.log(format.action('pour from ' + this + ' to ' + target));
-	if(target){
+	if(typeof target === 'number'){
+		console.log(format.action('pour ' + format.measure(target) + ' from ' + this));
+		this.mix.pour(target);
+	}else if(typeof target === 'object'){
+		console.log(format.action('pour from ' + this + ' to ' + target));
 		this.mix.pour(Math.min(this.volume(), target.space())).merge(target);
 	}else{
+		console.log(format.action('pour all from ' + this));
 		this.empty();
 	}
 	return this;
