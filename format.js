@@ -17,7 +17,7 @@ var format = module.exports = {
 		return '✓ ' + message;
 	},
 	success: function(){ // @TODO (goal) ?
-		return '\n-=-=- !!!!! =-= :) =-= ПОБЕДА =-= :) =-= !!!!! -=-=- ';
+		return '\n-=-=- !!!!! =-= :) =-= SUCCESS =-= :) =-= !!!!! -=-=- ';
 	},
 	
 		// value
