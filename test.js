@@ -6,7 +6,6 @@ console.log(format.header('start'));
 try{
 	
 	var approximation = (function(){
-		var precision = Math.pow(10, -6);
 		var vodka = (new model.schnapps).add(6/10, model.water).add(4/10, model.alcohol);
 		console.log(format.status(format.symbol('litre-of-vodka') + ' = ' + vodka));
 		var difference = function(example, standard){
@@ -14,6 +13,7 @@ try{
 			var strength = example.strength() - standard.strength();
 			return Math.sqrt(Math.pow(volume, 2) + Math.pow(strength, 2));
 		};
+		var precision = Math.pow(10, -6);
 		return function(drink){
 			var mean = difference(drink.mix, vodka);
 			return (mean < precision) ? 0 : mean;
