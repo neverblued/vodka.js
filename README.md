@@ -20,6 +20,13 @@ pour water from various sources to another tank or nowhere.
 My implementation approach is focused on creating an intellectual system that would
 solve the excercise by itself and save lazy me from googling out the right algorithm.
 
+Coding
+------
+
+* Pure proprietary Javascript, no external dependencies;
+* Abstraction layers are modules;
+* Clear, sensible semantics.
+
 Layers
 ------
 
@@ -31,13 +38,6 @@ and conforms to _Automat_ interface;
 * _Standard_ should separately describe approximation;
 * _Technology_ should implement experimental sequence generation and feedback processing;
 * __Test__ is executed by _run_ script and glues modules together.
-
-Coding
-------
-
-* Pure proprietary Javascript, no external dependencies;
-* Abstraction layers are modules;
-* Clear, sensible semantics.
 
 Status
 ------
