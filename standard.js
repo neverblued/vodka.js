@@ -8,15 +8,16 @@ var rms = function(sample, etalon){
 
 exports.deviation = function(sample, etalon){
 	var difference = rms(sample, etalon);
-	return (difference < exports.precision) ? null : difference;
+	return (difference < exports.precision) ? -difference : difference;
 };
 
 exports.validate = function(exhibit, etalon){
 	for(var index in exhibit){
 		var sample = exhibit[index];
-		if(!exports.deviation(sample, etalon)){
-			return index;
+		if(exports.deviation(sample, etalon) > 0){
+			continue;
 		}
+		return index;
 	}
 	return false;
 };

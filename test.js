@@ -18,8 +18,9 @@ try{
 		var exhibit = [this.get('tank-3').mix, this.get('tank-5').mix];
 		var result = standard.validate(exhibit, vodka);
 		if(result !== false){
-			var message = 'goal achieved via exhibit ' + (++result) + ': ' + exhibit[result];
-			console.log(format.event(message));
+			var item = exhibit[result];
+			var deviation = -standard.deviation(item, vodka);
+			console.log(format.event(item + ' deviates from vodka by ' + deviation));
 		}
 		return !!result;
 	});
