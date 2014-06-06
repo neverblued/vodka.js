@@ -4,7 +4,7 @@ vodka.js
 ### Overview
 
 This project is my attempt to solve
-a classical excercise, explained hereinafter,
+a classical exercise, explained hereinafter,
 by Javascript implementation.
 
 The outcome should be data describing exactly one litre of vodka,
@@ -21,7 +21,7 @@ pour water from various sources to another tank or nowhere.
 
 My implementation approach is focused on
 creating an intellectual system that would
-solve the excercise by itself and
+solve the exercise by itself and
 save lazy me from googling out the right algorithm.
 
 ### Coding
