@@ -32,11 +32,12 @@ save lazy me from googling out the right algorithm.
 
 ### Layers Structure
 
+* __Format__ defines output style;
 * __Automat__ is charged with setting up experimental environment,
 performing serial execution of methods and checking progress (almost ready);
 * __Model__ describes _Fluid_, _Mix_, _Schnapps_ and _Tank_, their protocols
 and conforms to _Automat_ interface (ready);
-* __View__ adds some _Model_ and _Automat_ console output sugar
+* __View__ adds some _Model_ and _Automat_ output detailing
 via _toString_ overriding (ready);
 * _Standard_ should separately describe test approximation (expected);
 * _Technology_ should implement experimental sequence generation and feedback processing (expected);
