@@ -7,7 +7,7 @@ console.log(format.header('start'));
 try{
 	
 	var vodka = (new model.schnapps).add(6/10, model.water).add(4/10, model.alcohol);
-	console.log(format.status(format.symbol('litre-of-vodka') + ' = ' + vodka));
+	console.log(format.event('goal is ' + vodka));
 
 	var barmen = new automat(function(){this
 		.take('water', model.water)
@@ -20,7 +20,7 @@ try{
 		if(result !== false){
 			var item = exhibit[result];
 			var deviation = -standard.deviation(item, vodka);
-			console.log(format.event(item + ' deviates from vodka by ' + deviation));
+			console.log(format.event(item + ' deviates from goal by ' + deviation));
 		}
 		return !!result;
 	});
