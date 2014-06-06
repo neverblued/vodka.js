@@ -17,10 +17,9 @@ try{
 	}).check(function(){
 		var exhibit = [this.get('tank-3').mix, this.get('tank-5').mix];
 		var result = standard.validate(exhibit, vodka);
-		if(result !== false){
-			var item = exhibit[result];
-			var deviation = -standard.deviation(item, vodka);
-			console.log(format.event(item + ' deviates from goal by ' + deviation));
+		if(result){
+			var deviation = standard.deviation(result, vodka);
+			console.log(format.event(result + ' deviates from goal by ' + deviation));
 		}
 		return !!result;
 	});
