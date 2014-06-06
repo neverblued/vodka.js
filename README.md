@@ -39,7 +39,7 @@ performing serial execution of methods and checking progress (almost ready);
 and conforms to _Automat_ interface (ready);
 * __View__ adds some _Model_ and _Automat_ output detailing
 via _toString_ overriding (ready);
-* _Standard_ should separately describe test approximation (expected);
+* __Standard__ implements result estimation;
 * _Technology_ should implement experimental sequence generation and feedback processing (expected);
 * __Test__ is executed by _run_ script and glues modules together (continuous refactoring).
 
