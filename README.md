@@ -1,9 +1,9 @@
 vodka.js
 ========
 
-### Project Overview
+### Overview
 
-This is my attempt to solve
+This project is my attempt to solve
 a classical excercise, explained hereinafter,
 by Javascript implementation.
 
@@ -24,13 +24,13 @@ creating an intellectual system that would
 solve the excercise by itself and
 save lazy me from googling out the right algorithm.
 
-### Coding Concept
+### Coding
 
 * Pure proprietary Javascript, no external dependencies;
 * Abstraction layers are modules;
 * Clear, sensible semantics.
 
-### Layers Structure
+### Modules
 
 * __Format__ defines output style;
 * __Automat__ is charged with setting up experimental environment,
