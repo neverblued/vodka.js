@@ -17,7 +17,7 @@ try{
 	}).check(function(){
 		var exhibit = [this.get('tank-3').mix, this.get('tank-5').mix];
 		var result = standard.validate(exhibit, vodka);
-		if(typeof result === 'number'){
+		if(result !== false){
 			var message = 'goal achieved via exhibit ' + (++result) + ': ' + exhibit[result];
 			console.log(format.event(message));
 		}
