@@ -1,6 +1,7 @@
 var format = require('./format');
 var model = require('./model');
 var automat = require('./automat');
+var technology = require('./technology');
 
 model.fluid.prototype.toString = function(){
 	return format.symbol(this.name);
@@ -35,4 +36,12 @@ automat.method.prototype.toString = function(){
 		this.action + ' ' + this.source + 
 		(this.target.length ? (', ' + this.target.join(', ')) : '')
 	);
+};
+
+technology.prototype.toString = function(){
+	return format.symbol('technology');
+};
+
+technology.option.prototype.toString = function(){
+	return '#T(' + this.title + ')';
 };

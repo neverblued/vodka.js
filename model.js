@@ -157,13 +157,13 @@ tank.prototype.check = function(){
 	return this;
 };
 
-tank.prototype.space = function(){
+tank.prototype.void = function(){
 	return this.limit - this.mix.volume();
 };
 
 tank.prototype.fill = function(source){
 	console.log(format.action('fill ' + this + ' with ' + source));
-	source.pour(this.space(), this);
+	source.pour(this.void(), this);
 	if(this.mix.volume() !== this.limit){
 		throw 'not full ' + this;
 	}
@@ -176,7 +176,7 @@ tank.prototype.pour = function(target){
 		this.mix.pour(target);
 	}else if(typeof target === 'object'){
 		console.log(format.action('pour from ' + this + ' to ' + target));
-		this.mix.pour(Math.min(this.volume(), target.space())).merge(target);
+		this.mix.pour(Math.min(this.volume(), target.void())).merge(target);
 	}else{
 		console.log(format.action('pour all from ' + this));
 		this.empty();

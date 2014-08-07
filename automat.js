@@ -1,57 +1,59 @@
 var format = require('./format');
+var scope = require('./scope');
+var goal = require('./goal');
 
-var automat = module.exports = function(constructor){
-	console.log(format.action('initialize'));
-	this.initialize = constructor;
-	this.sequence = [];
-	this.reset();
-	console.log(format.header('prepare'));
+var automat = module.exports = function(){
+//	console.log(format.action('initialize'));
+//	this.initial = input;
+//	this.sequence = [];
+//	this.reset();
+//	console.log(format.header('prepare'));
 };
 
-var interface = automat.interface = {
-	
-	run: function(action, target){
-		var lambda = this[action];
-		if(typeof lambda !== 'function'){
-			throw 'invalid method ' + action + ' of ' + this;
-		}
-		lambda.apply(this, target);
-	}
-};
-
-interface.conform = function(it){
-	it.prototype.run = interface.run;
-};
+//var interface = automat.interface = {
+//	
+//	run: function(action, target){
+//		var lambda = this[action];
+//		if(typeof lambda !== 'function'){
+//			throw 'invalid method ' + action + ' of ' + this;
+//		}
+//		lambda.apply(this, target);
+//	}
+//};
+//
+//interface.conform = function(it){
+//	it.prototype.run = interface.run;
+//};
 
 // scope
 
-automat.prototype.name = function(it){
-	return typeof it === 'string' && it.length > 0;
-};
+//automat.prototype.name = function(it){
+//	return typeof it === 'string' && it.length > 0;
+//};
+//
+//automat.prototype.take = function(name, object){
+//	if(!this.name(name)){
+//		throw 'invalid name ' + name;
+//	}
+//	console.log(format.action('take ' + name));
+//	this.data[name] = object;
+//	return this;
+//};
+//
+//automat.prototype.get = function(it){
+//	if(this.name(it)){
+//		return (typeof this.data[it] === 'undefined') ? null : this.data[it];
+//	}else{
+//		return it;
+//	}
+//};
 
-automat.prototype.take = function(name, object){
-	if(!this.name(name)){
-		throw 'invalid name ' + name;
-	}
-	console.log(format.action('take ' + name));
-	this.data[name] = object;
-	return this;
-};
-
-automat.prototype.get = function(it){
-	if(this.name(it)){
-		return (typeof this.data[it] === 'undefined') ? null : this.data[it];
-	}else{
-		return it;
-	}
-};
-
-automat.prototype.validator = undefined;
-
-automat.prototype.check = function(predicate){
-	this.validator = predicate;
-	return this;
-};
+//automat.prototype.validator = undefined;
+//
+//automat.prototype.check = function(predicate){
+//	this.validator = predicate;
+//	return this;
+//};
 
 // method
 
@@ -117,8 +119,7 @@ automat.prototype.reset = function(){
 	if(this.data){
 		delete this.data;
 	}
-	this.data = {};
-	this.initialize.call(this);
+	this.data = this.initial();
 	return this;
 };
 

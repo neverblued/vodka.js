@@ -1,48 +1,70 @@
 var format = require('./format');
-var automat = require('./automat');
-var model = require('./model');
-var standard = require('./standard');
-
 console.log(format.header('start'));
 try{
 	
-	var vodka = (new model.schnapps).add(6/10, model.water).add(4/10, model.alcohol);
-	console.log(format.event('goal is ' + vodka));
+	var etalon = require('./etalon');
+	var technology = require('./technology');
+//	var scope = require('./scope');
+//	var goal = require('./goal');
 
-	var barmen = new automat(function(){this
-		.take('water', model.water)
-		.take('alcohol', model.alcohol)
-		.take('tank-3', new model.tank(3, new model.schnapps))
-		.take('tank-5', new model.tank(5, new model.schnapps));
-	}).check(function(){
-		var exhibit = [this.get('tank-3').mix, this.get('tank-5').mix];
-		var result = standard.validate(exhibit, vodka);
-		if(result){
-			var deviation = standard.deviation(result, vodka);
-			console.log(format.event(result + ' deviates from goal by ' + deviation));
-		}
-		return !!result;
-	});
+/*
+	var barmen = new automat;
+	var solution = new technology(barmen)
 	
-	barmen.step(new automat.method('check', 'tank-3'));
-	barmen.step(new automat.method('check', 'tank-5'));
-	
-	barmen.step(new automat.method('pour', 'water', 2, 'tank-5'));
-	barmen.step(new automat.method('check', 'tank-5'));
+		.option('fill 3-litre tank with water', function(){
+			return this.get('tank-3').void() > 0;
+		}, function(){
+//			this.step(new automat.method('pour', 'water', 'tank-3'));
+			this.get('water').pour(this.get('tank-3'));
+		})
 
-	barmen.step(new automat.method('pour', 'alcohol', 2, 'tank-5'));
-	barmen.step(new automat.method('check', 'tank-5'));
+		.option('fill 5-litre tank with water', function(){
+			return this.get('tank-5').void() > 0;
+		}, function(){
+//			this.step(new automat.method('pour', 'water', 'tank-5'));
+			this.get('water').pour(this.get('tank-5'));
+		})
 
-	barmen.step(new automat.method('fill', 'tank-5', 'water'));
-	
-	barmen.step(new automat.method('pour', 'tank-5', 'tank-3'));
-	barmen.step(new automat.method('check', 'tank-3'));
-	barmen.step(new automat.method('check', 'tank-5'));
+		.option('fill 3-litre tank with alcohol', function(){
+			return this.get('tank-3').void() > 0;
+		}, function(){
+//			this.step(new automat.method('pour', 'alcohol', 'tank-3'));
+			this.get('alcohol').pour(this.get('tank-3'));
+		})
 
-	barmen.step(new automat.method('pour', 'tank-3', 2));
+		.option('fill 5-litre tank with alcohol', function(){
+			return this.get('tank-5').void() > 0;
+		}, function(){
+//			this.step(new automat.method('pour', 'alcohol', 'tank-5'));
+			this.get('alcohol').pour(this.get('tank-5'));
+		})
 
-	barmen.run();
+		.option('empty 3-litre tank', function(){
+			return this.get('tank-3').volume() > 0;
+		}, function(){
+			this.step(new automat.method('pour', 'tank-3'));
+		})
 
+		.option('empty 5-litre tank', function(){
+			return this.get('tank-5').volume() > 0;
+		}, function(){
+			this.step(new automat.method('pour', 'tank-5'));
+		})
+
+		.option('pour from 3-litre tank into 5-litre tank', function(){
+			return this.get('tank-3').volume() > 0 && this.get('tank-5').void() > 0;
+		}, function(){
+			this.step(new automat.method('pour', 'tank-3', 'tank-5'));
+		})
+
+		.option('pour from 5-litre tank into 3-litre tank', function(){
+			return this.get('tank-5').volume() > 0 && this.get('tank-3').void() > 0;
+		}, function(){
+			this.step(new automat.method('pour', 'tank-5', 'tank-3'));
+		})
+	;
+	console.log(format.status(solution.random(3).join(', ')));
+*/
 }catch(condition){
 	console.log(format.event(condition));
 	throw condition;
