@@ -1,0 +1,41 @@
+{ "excludeFiles":
+  [ "node_modules/**"
+  , "coverage"
+  , "automat.js"
+  , "technology.js"
+  , "test.js"
+  ]
+, "disallowEmptyBlocks": true
+, "disallowKeywords": [ "with" ]
+, "disallowKeywordsOnNewLine": [ "else", "catch" ]
+, "disallowMultipleLineBreaks": true
+, "disallowMultipleVarDecl": true
+, "disallowNewlineBeforeBlockStatements": true
+, "disallowSpaceAfterKeywords": [ "if", "for", "while", "do", "switch", "try", "catch" ] // "else",
+, "disallowSpaceAfterObjectKeys": true
+, "disallowSpaceAfterPrefixUnaryOperators": [ "++", "--", "+", "-", "~", "!" ]
+, "disallowSpaceBeforeBlockStatements": true
+, "disallowSpaceBeforePostfixUnaryOperators": [ "++", "--" ]
+, "disallowSpacesInFunctionExpression": {
+	"beforeOpeningRoundBrace": true,
+	"beforeOpeningCurlyBrace": true
+}
+, "disallowSpacesInsideArrayBrackets": true
+, "disallowSpacesInsideObjectBrackets": true
+, "disallowSpacesInsideParentheses": true
+, "disallowTrailingComma": true
+, "disallowTrailingWhitespace": true
+, "maximumLineLength": 110
+, "requireAnonymousFunctions": true
+, "requireCamelCaseOrUpperCaseIdentifiers": true
+, "requireCommaBeforeLineBreak": true
+, "requireCurlyBraces": [ "if", "else", "for", "while", "do", "switch", "try", "catch" ]
+, "requireLineFeedAtFileEnd": true
+, "requireParenthesesAroundIIFE": true
+, "requireSpaceAfterBinaryOperators": [ "+", "-", "/", "*", "=", "==", "===", "!=", "!==" ]
+, "requireSpaceAfterLineComment": true
+, "requireSpaceBeforeBinaryOperators": [ "+", "-", "/", "*", "=", "==", "===", "!=", "!==" ]
+, "requireSpacesInConditionalExpression": true
+, "validateIndentation": "\t"
+, "validateLineBreaks": "LF"
+}

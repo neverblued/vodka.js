@@ -1,0 +1,28 @@
+{
+  "name": "vodka",
+  "version": "0.0.1",
+  "description": "programming exercise",
+  "authors": [
+    {
+      "name": "Dmytro Pinskyi",
+      "url": "http://neverblued.info/"
+    }
+  ],
+  "license": "MIT",
+  "repository": "neverblued/vodka.js",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "scripts": {
+    "style": "./node_modules/.bin/jscs .",
+    "cover": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive -R spec -r should",
+    "clean": "./node_modules/.bin/istanbul check-coverage && rm -rf coverage",
+    "test": "npm run-script cover && npm run-script style"
+  },
+  "devDependencies": {
+    "istanbul": "*",
+    "jscs": "*",
+    "mocha": "*",
+    "should": "*"
+  }
+}

@@ -1,3 +1,4 @@
+/*
 var format = require('./format');
 var model = require('./model');
 var scope = require('./scope');
@@ -8,7 +9,7 @@ var technology = module.exports = function(){
 };
 
 technology.prototype.default = function(){
-	return scope();
+	return new scope;
 };
 
 technology.prototype.draft = function(){
@@ -30,7 +31,6 @@ technology.prototype.experiment = function(){
 	this.record(input, method, output);
 };
 
-/*
 var technology = module.exports = function(automat){
 	this.automat = automat;
 	this.methods = [];
@@ -68,19 +68,16 @@ technology.prototype.random = function(length){
 	}
 	return chain;
 };
-*/
 
+technology.prototype.comparative = function(method1, method2){
+};
 
-/*
-//technology.prototype.comparative = function(method1, method2){
-//};
-//
 technology.prototype.method = function(data){
 	return this.randomMethod();
-//	var technology = this;
-//	technology.methods.sort(function(method1, method2){
-//		return technology.comparative.call(data, method1, method2);
-//	});
-//	return technology.methods[0];
+	var technology = this;
+	technology.methods.sort(function(method1, method2){
+		return technology.comparative.call(data, method1, method2);
+	});
+	return technology.methods[0];
 };
 */

@@ -1,6 +1,5 @@
 var format = module.exports = {
-	
-		// line
+	// line
 	header: function(title){
 		return '\n' + title + '...';
 	},
@@ -19,8 +18,7 @@ var format = module.exports = {
 	success: function(){ // @TODO (goal) ?
 		return '\n-=-=- !!!!! =-= :) =-= SUCCESS =-= :) =-= !!!!! -=-=- ';
 	},
-	
-		// value
+	// value
 	symbol: function(it){
 		return '#' + it.toUpperCase();
 	},

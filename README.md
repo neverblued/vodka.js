@@ -5,7 +5,7 @@ vodka.js
 
 This project is my attempt to solve
 a classical exercise, explained hereinafter,
-by Javascript implementation.
+by JavaScript implementation.
 
 The outcome should be data describing exactly one litre of vodka,
 which is accepted as 40% solution of alcohol in water.
@@ -26,29 +26,30 @@ save lazy me from googling out the right algorithm.
 
 ### Coding
 
-* Pure proprietary Javascript, no external dependencies;
+* Pure proprietary JavaScript, no external dependencies;
 * Abstraction layers are modules;
 * Clear, sensible semantics.
+
+Development dependencies exist for testing.
 
 ### Modules
 
 * __Format__ defines output style;
-* __Automat__ is charged with setting up experimental environment,
+* __Automat__ is charged with setting up experimental environment (?),
 performing serial execution of methods and checking progress (almost ready);
-* __Model__ describes _Fluid_, _Mix_, _Schnapps_ and _Tank_, their protocols
-and conforms to _Automat_ interface (ready);
+* __Model__ describes entities (_Fluid_, _Mix_, _Schnapps_ and _Tank_) and protocols (ready);
 * __View__ adds some _Model_ and _Automat_ output detailing
 via _toString_ overriding (ready);
-* __Standard__ implements result estimation;
-* _Technology_ should implement experimental sequence generation and feedback processing (expected);
-* __Test__ is executed by _run_ script and glues modules together (continuous refactoring).
+* __Etalon__ implements output standard and estimation;
+* _Technology_ implements generating tree of _Experiments_ and processing their output (expected);
+* _Experiment_ instances hold a scope, a log and can be cloned to start next technological step.
 
 ### Platform
 
-[node.js](http://nodejs.org/)
+[Node.js](http://nodejs.org/)
 
 ### Test
 
 ```
-user@host:/project/folder$ ./run
+user@host:/project/folder$ npm install && npm test
 ```

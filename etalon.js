@@ -1,8 +1,8 @@
 var format = require('./format');
-var model = require('./model');
+var domain = require('./domain');
 
-var etalon = exports.object =
-	(new model.schnapps).add(6/10, model.water).add(4/10, model.alcohol);
+var etalon = (new domain.schnapps).add(6 / 10, domain.water).add(4 / 10, domain.alcohol);
+exports.object = etalon;
 console.log(format.status(format.symbol('etalon') + ' is ' + etalon));
 
 var rms = function(item1, item2){
@@ -26,13 +26,12 @@ var gate = function(value){
 
 exports.validate = function(){
 	var exhibit = Array.prototype.slice.call(arguments);
-	for(var index in exhibit){
-		var sample = exhibit[index];
+	exhibit.forEach(function(sample){
 		var deviation = exports.deviation(sample);
 		if(!gate(deviation)){
 			console.log(format.event(sample + ' deviates from etalon by ' + deviation));
 			return sample;
 		}
-	}
+	});
 	return false;
 };

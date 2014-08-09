@@ -1,13 +1,13 @@
+/*
 var format = require('./format');
 console.log(format.header('start'));
 try{
 	
-	var etalon = require('./etalon');
-	var technology = require('./technology');
+//	var etalon = require('./etalon');
+//	var technology = require('./technology');
 //	var scope = require('./scope');
 //	var goal = require('./goal');
 
-/*
 	var barmen = new automat;
 	var solution = new technology(barmen)
 	
@@ -64,9 +64,9 @@ try{
 		})
 	;
 	console.log(format.status(solution.random(3).join(', ')));
-*/
 }catch(condition){
 	console.log(format.event(condition));
 	throw condition;
 }
 console.log(format.header('end'));
+*/
