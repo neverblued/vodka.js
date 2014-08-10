@@ -20,9 +20,10 @@
     "test": "npm run-script cover && npm run-script style"
   },
   "devDependencies": {
+    "chai": "*",
     "istanbul": "*",
     "jscs": "*",
     "mocha": "*",
-    "should": "*"
+    "sinon": "*"
   }
 }

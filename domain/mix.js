@@ -3,7 +3,8 @@ var domain = require('./index');
 
 domain.mix = function(content){
 	if(content){
-		this.content = content;
+		console.log('mix.constructor', content);
+		this.content = Object.clone(content);
 	}else{
 		this.empty();
 	}

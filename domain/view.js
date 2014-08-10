@@ -1,17 +1,17 @@
-var format = require('./format');
-var model = require('./model');
+var format = require('../format');
+var domain = require('./index');
 // var automat = require('./automat');
 // var technology = require('./technology');
 
-model.fluid.prototype.toString = function(){
+domain.fluid.prototype.toString = function(){
 	return format.symbol(this.name);
 };
 
-model.mix.prototype.toString = function(){
+domain.mix.prototype.toString = function(){
 	var list = [];
 	for(var name in this.content){
 		var volume = this.content[name];
-		list.push(format.measure(volume, model.fluid.get(name)));
+		list.push(format.measure(volume, domain.fluid.get(name)));
 	}
 	if(list.length){
 		list.reverse();
@@ -21,13 +21,13 @@ model.mix.prototype.toString = function(){
 	}
 };
 
-model.schnapps.prototype.toString = function(){
-	var mix = format.measure(this.volume(), model.mix.prototype.toString.call(this));
+domain.schnapps.prototype.toString = function(){
+	var mix = format.measure(this.volume(), domain.mix.prototype.toString.call(this));
 	var title = '(' + format.strength(this.strength()) + ')' + 'schnapps';
 	return format.symbol(title) + '^' + mix;
 };
 
-model.tank.prototype.toString = function(){
+domain.tank.prototype.toString = function(){
 	return format.measure(this.limit, format.symbol('tank')) + '^' + this.mix;
 };
 
