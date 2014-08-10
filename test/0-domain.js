@@ -4,7 +4,7 @@ var domain = require('../domain');
 describe('Domain', function(){
 	
 	it('implements entities', function(){
-		expect(domain).to.have.keys(['fluid', 'water', 'alcohol', 'mix', 'schnapps', 'tank']);
+		expect(domain).to.have.keys('fluid', 'water', 'alcohol', 'mix', 'schnapps', 'tank');
 	});
 	
 	describe('implements methods', function(){
@@ -40,6 +40,14 @@ describe('Domain', function(){
 		it('container content volume', function(){
 			expect(domain.mix.prototype.volume).to.be.a('function');
 			expect(domain.tank.prototype.volume).to.be.a('function');
+		});
+	});
+	
+	describe('instance properties', function(){
+		it('content', function(){
+			var schnapps = new domain.schnapps;
+			expect(schnapps).to.be.instanceOf(domain.mix);
+			expect(schnapps).to.have.key('content');
 		});
 	});
 });

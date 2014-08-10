@@ -3,11 +3,14 @@ var domain = require('./index');
 
 domain.mix = function(content){
 	if(content){
-		console.log('mix.constructor', content);
-		this.content = Object.clone(content);
+		this.content = domain.mix.clone(content);
 	}else{
 		this.empty();
 	}
+};
+
+domain.mix.clone = function(content){
+	return JSON.parse(JSON.stringify(content));
 };
 
 domain.mix.prototype.empty = function(){
@@ -71,7 +74,7 @@ domain.mix.prototype.volume = function(){
 };
 
 domain.mix.prototype.compare = function(another){
-	var difference = Object.clone(this.content);
+	var difference = domain.mix.clone(this.content);
 	var name;
 	var volume;
 	for(name in another){

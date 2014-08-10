@@ -14,6 +14,7 @@ describe('Robot', function(){
 		it('creates instances', function(){
 			scope = new robot.scope(etalon.object);
 			expect(scope).to.have.keys(scopeProperties);
+			expect(scope.tankA.mix.content).to.eql(etalon.object.content);
 		});
 		
 		describe('clone', function(){
@@ -33,7 +34,7 @@ describe('Robot', function(){
 				expect(another.tankA.mix.content).to.be.empty;
 			});
 			it('tankA from first scope should still contain a litre of vodka', function(){
-				expect(scope.tankA.mix.content).to.equal(etalon.object.content);
+				expect(scope.tankA.mix.content).to.eql(etalon.object.content);
 			});
 		});
 	});
