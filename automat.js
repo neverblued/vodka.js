@@ -1,3 +1,4 @@
+/*
 var format = require('./format');
 var scope = require('./scope');
 var goal = require('./goal');
@@ -146,3 +147,4 @@ automat.prototype.run = function(){
 	});
 	return this.data;
 };
+*/

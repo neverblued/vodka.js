@@ -15,15 +15,14 @@
   },
   "scripts": {
     "style": "./node_modules/.bin/jscs .",
-    "cover": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive -R spec -r should",
+    "cover": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive -R spec -r chai",
     "clean": "./node_modules/.bin/istanbul check-coverage && rm -rf coverage",
-    "test": "npm run-script cover && npm run-script style"
+    "test": "npm run-script cover"
   },
   "devDependencies": {
     "chai": "*",
     "istanbul": "*",
     "jscs": "*",
-    "mocha": "*",
-    "sinon": "*"
+    "mocha": "*"
   }
 }

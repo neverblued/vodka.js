@@ -12,9 +12,23 @@ describe('Robot', function(){
 			expect(robot.scope).to.be.a('function');
 		});
 		it('creates instances', function(){
-			scope = new robot.scope(etalon.object);
+			expect(function(){
+				scope = new robot.scope(etalon.object);
+			}).not.to.throw();
 			expect(scope).to.have.keys(scopeProperties);
 			expect(scope.tankA.mix.content).to.eql(etalon.object.content);
+		});
+		
+		describe('exhibit', function(){
+			it('is a function', function(){
+				expect(scope.exhibit).to.be.a('function');
+			});
+			it('produces array of two tank mixes', function(){
+				var exhibit = scope.exhibit();
+				expect(exhibit).to.be.lengthOf(2);
+				expect(exhibit[0]).to.be.instanceOf(domain.schnapps);
+				expect(exhibit[1]).to.be.instanceOf(domain.schnapps);
+			});
 		});
 		
 		describe('clone', function(){

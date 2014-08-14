@@ -8,6 +8,17 @@ robot.scope = function(mixA, mixB){
 	this.tankB = new domain.tank(5, new domain.schnapps(mixB && mixB.content));
 };
 
+robot.scope.prototype.goal = ['tankA', 'tankB'];
+
+robot.scope.prototype.exhibit = function(){
+	var scope = this;
+	var exhibit = [];
+	scope.goal.forEach(function(tank){
+		exhibit.push(scope[tank].mix);
+	});
+	return exhibit;
+};
+
 robot.scope.prototype.clone = function(){
 	return new robot.scope(this.tankA.mix, this.tankB.mix);
 };

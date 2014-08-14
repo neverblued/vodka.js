@@ -1,4 +1,5 @@
 require('./scope');
-//require('./method');
+require('./goal');
+require('./method');
 require('./experiment');
 //require('./technology');

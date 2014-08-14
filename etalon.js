@@ -24,14 +24,14 @@ var gate = function(value){
 	return (value < exports.precision) ? null : value;
 };
 
-exports.validate = function(){
-	var exhibit = Array.prototype.slice.call(arguments);
-	exhibit.forEach(function(sample){
-		var deviation = exports.deviation(sample);
-		if(!gate(deviation)){
-			console.log(format.event(sample + ' deviates from etalon by ' + deviation));
-			return sample;
-		}
-	});
-	return false;
+exports.validate = function(exhibit){
+	if(!(exhibit instanceof domain.schnapps)){
+		return false;
+	}
+	var deviation = exports.deviation(exhibit);
+	if(gate(deviation)){
+		return false;
+	}
+	console.log(format.event(exhibit + ' deviates from etalon by ' + deviation));
+	return exhibit;
 };
